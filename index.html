@@ -1,0 +1,414 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PhotoTool — Resize, Compress & Convert</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="topbar">
+
+    <div class="brand">
+      <div class="brand-icon">📸</div>
+
+      <div>
+        <div class="brand-name">PhotoTool</div>
+        <div class="brand-subtitle">
+          Resize • Compress • Convert
+        </div>
+      </div>
+    </div>
+
+    <div class="theme-area">
+
+      <span class="theme-label">Theme</span>
+
+      <select id="themeSelect" class="theme-select">
+        <option value="system">💻 System</option>
+        <option value="light">☀️ Light</option>
+        <option value="dark">🌙 Dark</option>
+      </select>
+
+    </div>
+
+  </header>
+
+
+  <!-- MAIN -->
+  <main class="container">
+
+    <!-- HERO -->
+    <section class="hero">
+
+      <div class="hero-badge">
+        ✨ Simple • Fast • Private
+      </div>
+
+      <h1>
+        Make your photos
+        <span>the perfect size.</span>
+      </h1>
+
+      <p>
+        Resize, compress, convert and prepare passport-size photos
+        directly in your browser.
+      </p>
+
+    </section>
+
+
+    <!-- TOOL CARD -->
+    <section class="tool-card">
+
+      <!-- UPLOAD -->
+      <label
+        class="upload-box"
+        id="uploadBox"
+        for="imageInput"
+      >
+
+        <div class="upload-icon">
+          ⬆
+        </div>
+
+        <h2>
+          Upload your photo
+        </h2>
+
+        <p>
+          Click to choose an image or drag & drop here
+        </p>
+
+        <div class="supported">
+          JPG <span>•</span>
+          JPEG <span>•</span>
+          PNG <span>•</span>
+          WEBP
+        </div>
+
+      </label>
+
+      <input
+        type="file"
+        id="imageInput"
+        accept="image/jpeg,image/png,image/webp"
+        hidden
+      >
+
+
+      <!-- EDITOR -->
+      <section
+        id="editor"
+        class="editor hidden"
+      >
+
+        <!-- PREVIEW -->
+        <div class="preview-card">
+
+          <div class="section-heading">
+            <div>
+              <h3>Preview</h3>
+              <p>Your processed image will appear here.</p>
+            </div>
+          </div>
+
+          <div class="preview-area">
+            <img
+              id="preview"
+              alt="Photo preview"
+            >
+          </div>
+
+          <div
+            id="originalInfo"
+            class="image-info"
+          >
+            No image selected
+          </div>
+
+        </div>
+
+
+        <!-- SETTINGS -->
+        <div class="settings-card">
+
+          <div class="section-heading">
+            <div>
+              <h3>Customize</h3>
+              <p>Choose your size and output format.</p>
+            </div>
+          </div>
+
+
+          <!-- QUICK PRESETS -->
+          <div class="field">
+
+            <label for="preset">
+              Quick preset
+            </label>
+
+            <select id="preset">
+
+              <option value="">
+                Custom size
+              </option>
+
+              <option value="passport">
+                🪪 Passport Photo — 35×45 mm
+              </option>
+
+              <option value="instagram">
+                📱 Instagram — 1080×1080
+              </option>
+
+              <option value="facebook">
+                📘 Facebook — 1200×630
+              </option>
+
+              <option value="youtube">
+                ▶️ YouTube — 1280×720
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <!-- WIDTH / HEIGHT -->
+          <div class="dimensions">
+
+            <div class="field">
+
+              <label for="width">
+                Width
+              </label>
+
+              <div class="input-unit">
+                <input
+                  type="number"
+                  id="width"
+                  min="1"
+                  placeholder="Width"
+                >
+                <span>px</span>
+              </div>
+
+            </div>
+
+
+            <div class="field">
+
+              <label for="height">
+                Height
+              </label>
+
+              <div class="input-unit">
+                <input
+                  type="number"
+                  id="height"
+                  min="1"
+                  placeholder="Height"
+                >
+                <span>px</span>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- ASPECT RATIO -->
+          <label class="ratio-control">
+
+            <input
+              type="checkbox"
+              id="lockRatio"
+              checked
+            >
+
+            <span class="custom-check">✓</span>
+
+            <span>
+              Keep aspect ratio
+            </span>
+
+          </label>
+
+
+          <!-- FORMAT -->
+          <div class="field">
+
+            <label for="format">
+              Output format
+            </label>
+
+            <select id="format">
+
+              <option value="image/jpeg">
+                JPG / JPEG
+              </option>
+
+              <option value="image/png">
+                PNG
+              </option>
+
+              <option value="image/webp">
+                WEBP
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <!-- TARGET SIZE -->
+          <div class="field">
+
+            <label>
+              Target file size
+            </label>
+
+            <div class="size-controls">
+
+              <input
+                type="number"
+                id="targetSize"
+                min="1"
+                placeholder="Optional"
+              >
+
+              <select id="sizeUnit">
+
+                <option value="KB">
+                  KB
+                </option>
+
+                <option value="MB">
+                  MB
+                </option>
+
+              </select>
+
+            </div>
+
+            <small>
+              Leave empty to use normal quality.
+            </small>
+
+          </div>
+
+
+          <!-- BUTTONS -->
+          <button
+            id="processBtn"
+            class="btn btn-primary"
+          >
+            <span>⚡</span>
+            Process Image
+          </button>
+
+
+          <button
+            id="downloadBtn"
+            class="btn btn-success hidden"
+          >
+            <span>⬇</span>
+            Download Image
+          </button>
+
+
+          <button
+            id="resetBtn"
+            class="btn btn-secondary"
+          >
+            <span>↻</span>
+            Choose Another Photo
+          </button>
+
+        </div>
+
+      </section>
+
+
+      <!-- RESULT -->
+      <div
+        id="result"
+        class="result hidden"
+      >
+
+        <div class="result-icon">
+          ✓
+        </div>
+
+        <div>
+          <strong>Image ready</strong>
+          <p id="resultInfo"></p>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- FEATURES -->
+    <section class="features">
+
+      <div class="feature">
+        <div class="feature-icon">🪪</div>
+        <div>
+          <strong>Passport Photo</strong>
+          <p>35×45 mm preset</p>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">🎯</div>
+        <div>
+          <strong>Exact File Size</strong>
+          <p>Set KB or MB target</p>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">🔄</div>
+        <div>
+          <strong>Convert Format</strong>
+          <p>JPG, PNG & WEBP</p>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">🔒</div>
+        <div>
+          <strong>Private</strong>
+          <p>Processed in browser</p>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer>
+
+    <p>
+      © 2026 PhotoTool
+      <span>•</span>
+      Your photos stay on your device 🔒
+    </p>
+
+  </footer>
+
+
+  <script src="script.js"></script>
+
+</body>
+</html>
